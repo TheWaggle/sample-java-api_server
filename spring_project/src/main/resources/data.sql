@@ -1,0 +1,1 @@
+create table scores(id integer primary key autoincrement, score integer);
