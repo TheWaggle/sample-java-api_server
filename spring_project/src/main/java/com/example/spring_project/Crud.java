@@ -46,11 +46,20 @@ public class Crud {
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
             ResultSet rs = statement.executeQuery("SELECT * FROM scores ORDER BY score DESC limit 10");
-            List<Integer> scoreList = new ArrayList<>();
+//            List<Integer> scoreList = new ArrayList<>(); //java版APIはリストで返す
+            List<String> scoreList = new ArrayList<>(); //c版APIは文字列で返す
             while(rs.next()){
-                scoreList.add(Integer.parseInt(rs.getString("score")));
+                scoreList.add(rs.getString("score")); //c版APIは文字列で返す
+//                scoreList.add(Integer.parseInt(rs.getString("score"))); //java版APIはリストで返す
             }
-            return scoreList;
+            // add scoreList to String.//c版APIは文字列で返す
+            StringBuilder str = new StringBuilder(); 
+            for (String score : scoreList) {
+                str.append(score);
+                str.append(",");
+            }
+            return str; //C版APIは文字列で返す
+//            return screList; // Java版APIはリストで返す
 
         } catch(SQLException e) {
             // if the error message is "out of memory", 
